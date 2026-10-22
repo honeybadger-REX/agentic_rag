@@ -1,13 +1,12 @@
-from sentence_transformers import SentenceTransformer
 from src.ingestion.loader import loader
 from src.ingestion.chunker import chunking
+import ollama
+
+
+EMBEDDING_MODEL = "nomic-embed-text"
 
 
 def embedding(chunks):
-
-    model = SentenceTransformer(
-        "all-MiniLM-L6-v2"
-    )
 
     # Convert LangChain Document objects to text
     texts = [
@@ -15,12 +14,17 @@ def embedding(chunks):
         for chunk in chunks
     ]
 
-    # Convert text to vectors
-    embeddings = model.encode(texts)
+    # Generate embeddings using Ollama
+    response = ollama.embed(
+        model=EMBEDDING_MODEL,
+        input=texts
+    )
+
+    embeddings = response["embeddings"]
 
     return {
         "embedding": embeddings,
-        "shape": embeddings.shape
+        "shape": (len(embeddings), len(embeddings[0]))
     }
 
 
@@ -34,12 +38,9 @@ if __name__ == "__main__":
         document["document"]
     )
 
-    print(an["chunk"])
- 
-
     em = embedding(
         chunks=an["chunk"]
     )
 
     print("Embedding shape:", em["shape"])
-    print(em["embedding"])
+    print("Number of embeddings:", len(em["embedding"]))

@@ -1,13 +1,17 @@
 import json
 import ollama
 
-from agent.tools import retrieve
+
 
 
 MODEL = "qwen2.5:1.5b"
 
-
-def decide(question: str, context: str) -> dict:
+def decide(
+    question: str,
+    context: str,
+    answer: str = "",
+    last_action: str = ""
+) -> dict:
 
     context_text = context
 
