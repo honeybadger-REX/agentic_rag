@@ -1,0 +1,29 @@
+# Python virtual environment
+Lib/
+Scripts/
+Include/
+pyvenv.cfg
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+.env.*
+
+# IDE
+.vscode/
+
+# Data
+data/
+
+# Vector store
+vector_store/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Package-generated files
+share/
