@@ -1,5 +1,5 @@
 from agent import decide
-from agent.tools import retrieve
+from agent.tools import tools
 from src.document_embeding import loader
 
 
@@ -47,7 +47,7 @@ def run_agent(question: str):
                 print("-", document)
 
             context.extend(documents)
-        elif action == "reavulae":
+        elif action == "revaluate":
             pass
 
         elif action == "answer":

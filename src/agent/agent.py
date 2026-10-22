@@ -7,9 +7,9 @@ from agent.tools import retrieve
 MODEL = "qwen2.5:1.5b"
 
 
-def decide(question: str, context: list[str]) -> dict:
+def decide(question: str, context: str) -> dict:
 
-    context_text = "\n\n".join(context)
+    context_text = context
 
     prompt = f"""
 You are the controller of an Agentic RAG system.
@@ -40,6 +40,15 @@ For retrieval:
 
 {{
     "action": "retrieve",
+}}
+For evalutating retriev data:
+{{
+    "action":"evaluate"
+}}
+
+For evaluating answer :
+{{
+   "action" : "answer_evaluate
 }}
 
 For answering:

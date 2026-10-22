@@ -23,10 +23,20 @@ def tools(query:str,tool:dict):
         reranked = rerank(query,result,tool["rerank_top"])
         context = build_context(reranked)
         return {"context" : context,"highest score":reranked["score"][0]}
-
-
-
-
+    elif tool["name"] == "retival_evaluate":
+        result = evaluate_retrieval(tool["result"],-0.08)
+        if result == "bad":
+            return "retrival is not good"
+        else:
+            return "retieval is good for answering"
+    elif tool["name"] == "answer_evaluate":
+        statues = evaluate_retrieval(tool["answer"],tool["context"])
+        if statues == "bad":
+            return "answer is not  good to answer"
+        else:
+            return "answer is good to answer "
+    elif tool["name"] == "answer":
+        pass
 
 
 
