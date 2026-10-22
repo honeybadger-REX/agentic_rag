@@ -1,5 +1,6 @@
 import re
 import math
+import ollama
 
 
 def evaluate_retrieval(results, threshold=0.0):
@@ -14,8 +15,19 @@ def evaluate_retrieval(results, threshold=0.0):
 
     return "bad"
 
+def evaluate_answer(answer: str, context: str, model="qwen2.5:1.5b") -> str:
+    prompt = f"""Does the context support this answer? Reply YES or NO only.
 
-def evaluate_answer(answer, context):
+Context: {context}
+Answer: {answer}"""
+    resp = ollama.chat(model=model, messages=[{"role":"user","content":prompt}],
+                       options={"temperature": 0})
+    if resp["message"]["content"].strip().upper().startswith("YES"):
+        return "good"
+    else:
+        return"bad"
+
+def evaluate_answer1(answer, context):
     """
     Check whether the generated answer is supported
     by the retrieved context.

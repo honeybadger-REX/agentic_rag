@@ -23,6 +23,7 @@ def tools(query: str, tool: dict):
     # -------------------------------------------------
 
     if tool["name"] == "retrieve":
+        print("retiver")
 
         result = reviewer(
             query,
@@ -65,6 +66,7 @@ def tools(query: str, tool: dict):
     # -------------------------------------------------
 
     elif tool["name"] == "retrieval_evaluate":
+        print("evaluate")
 
         results = tool.get("result", [])
 
@@ -90,7 +92,7 @@ def tools(query: str, tool: dict):
     # -------------------------------------------------
 
     elif tool["name"] == "corrective_retrieve":
-
+        print("correct retrival")
         result = corrective_reranking(
             query,
             tool["index_pt"],
@@ -120,6 +122,7 @@ def tools(query: str, tool: dict):
     # -------------------------------------------------
 
     elif tool["name"] == "answer":
+        print("generae answer")
 
         context = tool.get("context", "")
 
@@ -146,6 +149,7 @@ def tools(query: str, tool: dict):
     # -------------------------------------------------
 
     elif tool["name"] == "answer_evaluate":
+        print("answer evaluate")
 
         answer = tool.get("answer", "")
         context = tool.get("context", "")
